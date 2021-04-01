@@ -41,7 +41,7 @@ return [
     'distinct' => 'The :attribute field has a duplicate value.',
     'email' => ':attribute phải đúng định dạng email.',
     'ends_with' => 'The :attribute must end with one of the following: :values.',
-    'exists' => 'The selected :attribute is invalid.',
+    'exists' => ':attribute không tồn tại.',
     'file' => 'The :attribute must be a file.',
     'filled' => 'The :attribute field must have a value.',
     'gt' => [

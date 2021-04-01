@@ -36,4 +36,7 @@ Route::prefix('admin')->middleware('auth')->group(function () {
         })
         ->name('admin.product.index');
     });
+    Route::prefix('user')->group(function () {
+        Route::view('user', 'admin.layouts.dashboard');
+    });
 });
