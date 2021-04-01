@@ -1,3 +1,6 @@
-.skin-blue {
-    background-color: #3c8dbc;
+@media(max-width: 768px) {
+    .full-width {
+        width: 100%;  
+        display: block;
+    }
 }

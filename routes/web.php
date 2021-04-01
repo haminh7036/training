@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Auth\LoginController;
+use App\Http\Controllers\Modules\User\User\UserController;
 
 /*
 |--------------------------------------------------------------------------
@@ -37,6 +38,11 @@ Route::prefix('admin')->middleware('auth')->group(function () {
         ->name('admin.product.index');
     });
     Route::prefix('user')->group(function () {
-        Route::view('user', 'admin.layouts.dashboard');
+        Route::get('user', [UserController::class, 'index'])
+            ->name('admin.user.user.index');
+
+        //
+        Route::get('user-list', [UserController::class, 'getUsers'])
+            ->name('admin.user.user.getUsers');
     });
 });
