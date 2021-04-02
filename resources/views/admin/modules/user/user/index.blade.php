@@ -97,7 +97,8 @@
         </div>
 
         <!-- Hidden Input -->
-        <input type="hidden" name="deleteUser" id="deleteUser">
+        <input type="hidden" id="deleteUser">
+        <input type="hidden" id="blockUser">
 
         <!-- Modal -->
         <div class="modal fade" id="deleteUserModal" tabindex="-1" role="dialog" aria-labelledby="deleteUserLabel" aria-hidden="true">
@@ -115,6 +116,26 @@
                     <div class="modal-footer">
                     <button type="button" class="btn btn-sm btn-secondary" data-dismiss="modal">Hủy bỏ</button>
                     <button type="button" id="submit-delete" class="btn btn-sm btn-primary">Xác nhận</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="modal fade" id="blockUserModal" tabindex="-1" role="dialog" aria-labelledby="blockUserLabel" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                    <h5 class="modal-title" id="blockUserLabel">Nhắc nhở</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                    </div>
+                    <div class="modal-body blockUserModalContent">
+                    ...
+                    </div>
+                    <div class="modal-footer">
+                    <button type="button" class="btn btn-sm btn-secondary" data-dismiss="modal">Hủy bỏ</button>
+                    <button type="button" id="submit-block" class="btn btn-sm btn-primary">Xác nhận</button>
                     </div>
                 </div>
             </div>
@@ -174,6 +195,20 @@
             })
         }
 
+        function getBlockId (id) {
+            $("#blockUser").val(id);
+            axios({
+                url: "{{route('admin.user.user.userInfo')}}",
+                method: "POST",
+                data: {
+                    id: id
+                }
+            }).then((res) => {
+                $(".blockUserModalContent").html(`Bạn có muốn ${(res.data.data.is_active === 0) ? 'mở khóa' : 'khóa'} thành viên ${res.data.data.name} không?`);
+                $("#blockUserModal").modal("show");
+            })            
+        }
+
         $(document).ready(function () {
             //init table
             $("#table-user").DataTable({
@@ -231,7 +266,7 @@
                             <center>
                                 <i class="fas fa-edit text-info extend-btn"></i>
                                 <i class="fas fa-trash-alt text-danger extend-btn" onclick= "getDeleteId(${data})"></i>
-                                <i class="fas fa-user-times extend-btn"></i>
+                                <i class="fas fa-user-times extend-btn" onclick = "getBlockId(${data})"></i>
                             </center>
                             `;
                         }
@@ -281,7 +316,7 @@
                                 <center>
                                     <i class="fas fa-edit text-info extend-btn"></i>
                                     <i class="fas fa-trash-alt text-danger extend-btn" onclick= "getDeleteId(${data})"></i>
-                                    <i class="fas fa-user-times extend-btn"></i>
+                                    <i class="fas fa-user-times extend-btn onclick = "getBlockId(${data})"></i>
                                 </center>
                                 `;
                             }
@@ -345,7 +380,7 @@
                                 <center>
                                     <i class="fas fa-edit text-info extend-btn"></i>
                                     <i class="fas fa-trash-alt text-danger extend-btn" onclick= "getDeleteId(${data})"></i>
-                                    <i class="fas fa-user-times extend-btn"></i>
+                                    <i class="fas fa-user-times extend-btn onclick = "getBlockId(${data})"></i>
                                 </center>
                                 `;
                             }
@@ -365,6 +400,20 @@
                 }).then((res) => {
                     $("#table-user").DataTable().ajax.reload();
                     $("#deleteUserModal").modal('toggle');
+                })
+            });
+
+            //submit block/unblock user
+            $("#submit-block").on("click", function () {
+                axios({
+                    url: "{{route('admin.user.user.userBlock')}}",
+                    method: "POST",
+                    data: {
+                        id: $("#blockUser").val()
+                    }
+                }).then((res) => {
+                    $("#table-user").DataTable().ajax.reload();
+                    $("#blockUserModal").modal('toggle');
                 })
             });
         });

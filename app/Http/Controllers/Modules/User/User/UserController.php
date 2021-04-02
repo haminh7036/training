@@ -60,6 +60,7 @@ class UserController extends Controller
 
     public function getInfoUser(Request $request)
     {
+        //user information
         $user = UserModel::where('id', $request->id)
         ->first();
 
@@ -71,10 +72,29 @@ class UserController extends Controller
 
     public function deleteUser(Request $request)
     {
+        //delete user
         UserModel::where('id', $request->id)
             ->update([
                 'is_delete' => 1
             ]);
+        return response()
+            ->json([
+                'message' => 'success'
+            ], 200);
+    }
+
+    public function blockUser(Request $request)
+    {
+        //block / unblock user
+        $user = UserModel::where('id', $request->id)
+            ->first();
+        if ($user->is_active === 0) {
+            $user->is_active = 1;
+        } else {
+            $user->is_active = 0;
+        }
+        $user->save();
+
         return response()
             ->json([
                 'message' => 'success'

@@ -33,7 +33,7 @@ Route::name('auth.')->group(function () {
 Route::prefix('admin')->middleware('auth')->group(function () {
     Route::prefix('product')->group(function () {
         Route::get('product', function() {
-            return view('welcome');
+            return view('admin.modules.user.user.index');
         })
             ->name('admin.product.index');
     });
@@ -50,5 +50,7 @@ Route::prefix('admin')->middleware('auth')->group(function () {
             ->name('admin.user.user.userInfo');
         Route::post('user-delete', [UserController::class, 'deleteUser'])
             ->name('admin.user.user.userDelete');
+        Route::post('user-block', [UserController::class, 'blockUser'])
+            ->name('admin.user.user.userBlock');
     });
 });
