@@ -1,6 +1,3 @@
-@media(max-width: 768px) {
-    .full-width {
-        width: 100%;  
-        display: block;
-    }
+.extend-btn {
+    cursor: pointer;
 }

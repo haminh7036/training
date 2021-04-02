@@ -35,7 +35,7 @@ Route::prefix('admin')->middleware('auth')->group(function () {
         Route::get('product', function() {
             return view('welcome');
         })
-        ->name('admin.product.index');
+            ->name('admin.product.index');
     });
     Route::prefix('user')->group(function () {
         Route::get('user', [UserController::class, 'index'])
@@ -44,5 +44,11 @@ Route::prefix('admin')->middleware('auth')->group(function () {
         //
         Route::get('user-list', [UserController::class, 'getUsers'])
             ->name('admin.user.user.getUsers');
+        Route::post('user-search', [UserController::class, 'search'])
+            ->name('admin.user.user.search');
+        Route::post('user-info', [UserController::class, 'getInfoUser'])
+            ->name('admin.user.user.userInfo');
+        Route::post('user-delete', [UserController::class, 'deleteUser'])
+            ->name('admin.user.user.userDelete');
     });
 });

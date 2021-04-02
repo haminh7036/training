@@ -34,4 +34,14 @@ class UserModel extends Authenticatable
         'password',
         'remember_token',
     ];
+
+    public function scopeActive($query, $status)
+    {
+        return $query->where('is_active', '=', intval($status));
+    }
+
+    public function scopeRole($query, $role)
+    {
+        return $query->where('group_role', 'like', $role);
+    }
 }
