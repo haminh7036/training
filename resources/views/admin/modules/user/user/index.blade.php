@@ -279,9 +279,9 @@
                             render: function (data) {
                                 return `
                                 <center>
-                                    <i class="fas fa-edit text-info"></i>
-                                    <i class="fas fa-trash-alt text-danger"></i>
-                                    <i class="fas fa-user-times"></i>
+                                    <i class="fas fa-edit text-info extend-btn"></i>
+                                    <i class="fas fa-trash-alt text-danger extend-btn" onclick= "getDeleteId(${data})"></i>
+                                    <i class="fas fa-user-times extend-btn"></i>
                                 </center>
                                 `;
                             }
@@ -343,9 +343,9 @@
                             render: function (data) {
                                 return `
                                 <center>
-                                    <i class="fas fa-edit text-info"></i>
-                                    <i class="fas fa-trash-alt text-danger"></i>
-                                    <i class="fas fa-user-times"></i>
+                                    <i class="fas fa-edit text-info extend-btn"></i>
+                                    <i class="fas fa-trash-alt text-danger extend-btn" onclick= "getDeleteId(${data})"></i>
+                                    <i class="fas fa-user-times extend-btn"></i>
                                 </center>
                                 `;
                             }
