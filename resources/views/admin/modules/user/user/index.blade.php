@@ -363,46 +363,7 @@
                         id: $("#deleteUser").val()
                     }
                 }).then((res) => {
-                    $("#table-user").DataTable().destroy();
-                    $("#table-user").DataTable({
-                        dom: myConfig.dom,
-                        responsive: myConfig.responsive,
-                        language: myConfig.language,
-                        pageLength: myConfig.pageLength,
-                        ordering: myConfig.ordering,
-                        deferRender: myConfig.deferRender,
-                        ajax: {
-                            url: "{{route('admin.user.user.getUsers')}}",
-                            dataSrc: 'data'
-                        },
-                        columns: [
-                            { data: 'name' },
-                            { data: 'email' },
-                            { data: 'group_role' },
-                            { 
-                                data: 'is_active',
-                                render: function (data) {
-                                    if (data === 0) {
-                                        return '<label class = "text-danger">Tạm khóa</label>'
-                                    } else {
-                                        return '<label class = "text-success">Đang hoạt động</label>'
-                                    }
-                                }
-                            },
-                            {
-                                data: 'id',
-                                render: function (data) {
-                                    return `
-                                    <center>
-                                        <i class="fas fa-edit text-info"></i>
-                                        <i class="fas fa-trash-alt text-danger"></i>
-                                        <i class="fas fa-user-times"></i>
-                                    </center>
-                                    `;
-                                }
-                            }
-                        ],
-                    });
+                    $("#table-user").DataTable().ajax.reload();
                     $("#deleteUserModal").modal('toggle');
                 })
             });
