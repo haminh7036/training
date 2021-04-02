@@ -266,7 +266,7 @@
                             <center>
                                 <i class="fas fa-edit text-info extend-btn"></i>
                                 <i class="fas fa-trash-alt text-danger extend-btn" onclick= "getDeleteId(${data})"></i>
-                                <i class="fas fa-user-times extend-btn" onclick = "getBlockId(${data})"></i>
+                                <i class="fas fa-user-times extend-btn" onclick= "getBlockId(${data})"></i>
                             </center>
                             `;
                         }
@@ -316,7 +316,7 @@
                                 <center>
                                     <i class="fas fa-edit text-info extend-btn"></i>
                                     <i class="fas fa-trash-alt text-danger extend-btn" onclick= "getDeleteId(${data})"></i>
-                                    <i class="fas fa-user-times extend-btn onclick = "getBlockId(${data})"></i>
+                                    <i class="fas fa-user-times extend-btn" onclick= "getBlockId(${data})"></i>
                                 </center>
                                 `;
                             }
@@ -380,7 +380,7 @@
                                 <center>
                                     <i class="fas fa-edit text-info extend-btn"></i>
                                     <i class="fas fa-trash-alt text-danger extend-btn" onclick= "getDeleteId(${data})"></i>
-                                    <i class="fas fa-user-times extend-btn onclick = "getBlockId(${data})"></i>
+                                    <i class="fas fa-user-times extend-btn" onclick= "getBlockId(${data})"></i>
                                 </center>
                                 `;
                             }
