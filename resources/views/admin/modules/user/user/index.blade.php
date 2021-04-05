@@ -567,22 +567,20 @@
                                 emailError.remove();
                             }
                             $("#inputEmail").removeClass("is-invalid");
+
+                            if ($("#methodPopup").val() === 'add') {
+                                //add user
+                                axios({
+                                    url: "{{route('admin.user.user.userAdd')}}",
+                                    method: "POST",
+                                    data: requestData
+                                }).then((res) => {
+                                    $("#table-user").DataTable().ajax.reload();
+                                    $("#popupModal").modal("toggle");
+                                })
+                            }
                         }
                     })
-
-                    if ($("#methodPopup").val() === 'add') {
-                        //add user
-                        axios({
-                            url: "{{route('admin.user.user.userAdd')}}",
-                            method: "POST",
-                            data: requestData
-                        }).then((res) => {
-                            $("#table-user").DataTable().ajax.reload();
-                        })
-                    } else {
-                        //edit user
-                        console.log("NO");
-                    }
                 }
             });
         });
