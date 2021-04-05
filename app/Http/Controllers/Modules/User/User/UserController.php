@@ -34,14 +34,13 @@ class UserController extends Controller
         $users = UserModel::where('is_delete', 0);
 
         //processing search value
-        $users = $users->where( function ($query) use ($request) {
-            if (!empty($request->name)) {
-                $query->orWhere('name', 'like', '%'. $request->name .'%');
-            }
-            if (!empty($request->email)) {
-                $query->orWhere('email', 'like', '%'. $request->email .'%');
-            }
-        });
+        if (!empty($request->name)) {
+            $users = $users->where('name', 'like', '%'. $request->name .'%');
+        }
+        
+        if (!empty($request->email)) {
+            $users = $users->where('email', 'like', '%'. $request->email .'%');
+        }
 
         if (!empty($request->role)) {
             $users = $users->role($request->role);
