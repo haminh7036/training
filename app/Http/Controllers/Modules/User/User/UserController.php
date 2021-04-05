@@ -5,11 +5,14 @@ namespace App\Http\Controllers\Modules\User\User;
 use App\Http\Controllers\Controller;
 use App\Models\UserModel;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Validator;
 
 class UserController extends Controller
 {
     public function index()
     {
+        //\DebugBar::info('message');
         return view('admin.modules.user.user.index');
     }
 
@@ -98,6 +101,52 @@ class UserController extends Controller
         return response()
             ->json([
                 'message' => 'success'
+            ], 200);
+    }
+
+    public function addUser(Request $request) {
+        //add user
+        $request->validate([
+            'name' => 'required | string',
+            'email' => 'required | string | email | unique:mst_users,email',
+            'password' => 'required | string | min:5 | regex:/^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])/',
+            'group_role' => 'required | in:Admin,Reviewer,Editor',
+            'is_active' => 'boolean'
+        ]);
+        
+        $data = $request->except('password', 'is_active');
+
+        $active = isset($request->is_active) ? (int) $request->is_active : 1;
+        $password = Hash::make($request->password);
+
+        UserModel::create(array_merge($data, [
+            'password' => $password,
+            'is_active' => $active
+        ]));
+
+        return response()
+        ->json([
+            'message' => 'success'
+        ], 200);
+    }
+
+    public function uniqueEmail(Request $request)
+    {
+        //check if email has been existed
+        $validator = Validator::make($request->all(), [
+            'email' => 'unique:mst_users,email',
+        ]);
+
+        if ($validator->fails()) {
+            return response()
+            ->json([
+                'email' => false
+            ], 200);
+        }
+
+        return response()
+            ->json([
+                'email' => true
             ], 200);
     }
 }

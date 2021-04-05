@@ -1,3 +1,26 @@
 .extend-btn {
     cursor: pointer;
 }
+
+@media only screen and (max-width: 768px) {
+    .btn, .btn-group {
+        width:100%;
+    }
+    input [type=text] {
+        width: 100%;
+    }
+    input [type=password] {
+        width: 100%;
+    }
+    span.error-text {
+        font-style: italic;        
+    }
+}
+@media only screen and (min-width: 768px) {
+    span.error-text {
+        padding-left: 5rem;
+        font-style: italic;
+    }
+
+}
+

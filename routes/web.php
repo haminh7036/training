@@ -52,5 +52,9 @@ Route::prefix('admin')->middleware('auth')->group(function () {
             ->name('admin.user.user.userDelete');
         Route::post('user-block', [UserController::class, 'blockUser'])
             ->name('admin.user.user.userBlock');
+        Route::post('user-add', [UserController::class, 'addUser'])
+            ->name('admin.user.user.userAdd');
+        Route::post('email-validate', [UserController::class, 'uniqueEmail'])
+            ->name('admin.user.user.uniqueEmail');
     });
 });
