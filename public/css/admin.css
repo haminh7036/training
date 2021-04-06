@@ -22,6 +22,9 @@
     }
 }
 @media only screen and (min-width: 768px) {
+    button {
+        margin-bottom: 10px;
+    }
     span.error-text {
         padding-left: 5rem;
         font-style: italic;

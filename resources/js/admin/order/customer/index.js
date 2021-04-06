@@ -41,7 +41,15 @@ var table = $("#table-customer").DataTable({
     deferRender: myConfig.deferRender,
     processing: true,
     serverSide: true,
-    ajax: "/admin/order/customer-list",
+    ajax: {
+        url: "/admin/order/customer-list",
+        data: function (d) {
+            d.name = $("#name").val();
+            d.email = $("#email").val();
+            d.address = $("#address").val();
+            d.status = $("#status").val();
+        }
+    },
     columns: [
         { data: 'customer_name' },
         { data: 'email' },
@@ -51,11 +59,14 @@ var table = $("#table-customer").DataTable({
             data: 'edit',
             orderable: false,
             searchable: false
+        },
+        {
+            data: 'is_active',
+            visible: false
         }
     ],
 });
 
-$('#table-customer tbody').on('click', 'tr', function () {
-    var data = table.row( this ).data();
-    alert( 'You clicked on '+data[0]+'\'s row' );
-} );
+$("#btn-search").on("click", function () {
+    table.draw();
+});
