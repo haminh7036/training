@@ -17,9 +17,22 @@
       <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
         <!-- Add icons to the links using the .nav-icon class
              with font-awesome or any other icon font library -->
-        <li class="nav-header">EXAMPLES</li>
+        @foreach ($menu as $item)
+            <li class="nav-header text-uppercase">{{$item ['name']}}</li>
+            @foreach ($item ['child'] as $childItem)
+              <li class="nav-item">
+                <a href="{{$childItem ['route']}}" class="nav-link {{(Request::getPathInfo() === $childItem ['url']) ? 'active' : ''}}">
+                  <i class="nav-icon {{$childItem ['icon'] ?? 'fas fa-users'}}"></i>
+                  <p>
+                    {{$childItem ['name']}}
+                  </p>
+                </a>
+              </li>
+            @endforeach
+        @endforeach
+        {{-- <li class="nav-header">EXAMPLES</li>
         <li class="nav-item">
-          <a href="../calendar.html" class="nav-link active">
+          <a href="../calendar.html" class="nav-link">
             <i class="nav-icon far fa-calendar-alt"></i>
             <p>
               Calendar
@@ -391,7 +404,7 @@
             <i class="nav-icon far fa-circle text-info"></i>
             <p>Informational</p>
           </a>
-        </li>
+        </li> --}}
       </ul>
     </nav>
     <!-- /.sidebar-menu -->

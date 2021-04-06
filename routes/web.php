@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Auth\LoginController;
+use App\Http\Controllers\Modules\Order\Customer\CustomerController;
 use App\Http\Controllers\Modules\User\User\UserController;
 
 /*
@@ -29,19 +30,27 @@ Route::name('auth.')->group(function () {
 
 });
 
+//Client
+Route::get('/', function() {
+    return view('welcome');
+})->middleware('auth');
+
+
 //Dashboard
 Route::prefix('admin')->middleware('auth')->group(function () {
     Route::prefix('product')->group(function () {
+        //product
         Route::get('product', function() {
-            return view('admin.modules.user.user.index');
+            return redirect()
+                ->route('admin.user.user.index');
         })
             ->name('admin.product.index');
+        //category
     });
     Route::prefix('user')->group(function () {
+        //user
         Route::get('user', [UserController::class, 'index'])
             ->name('admin.user.user.index');
-
-        //
         Route::get('user-list', [UserController::class, 'getUsers'])
             ->name('admin.user.user.getUsers');
         Route::post('user-search', [UserController::class, 'search'])
@@ -56,5 +65,17 @@ Route::prefix('admin')->middleware('auth')->group(function () {
             ->name('admin.user.user.userAdd');
         Route::post('email-validate', [UserController::class, 'uniqueEmail'])
             ->name('admin.user.user.uniqueEmail');
+        Route::post('email-validate-2', [UserController::class, 'uniqueEmailEdit'])
+            ->name('admin.user.user.uniqueEmailEdit');
+        Route::post('user-edit', [UserController::class, 'editUser'])
+            ->name('admin.user.user.userEdit');
+        //group role
+    });
+    Route::prefix('order')->group(function () {
+        Route::get('/customer', [CustomerController::class, 'index'])
+            ->name('admin.order.customer.index');
+        Route::get('/customer-list', [CustomerController::class, 'getCustomers'])
+            ->name('admin.order.customer.getCustomers');
     });
 });
+

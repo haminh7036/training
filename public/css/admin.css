@@ -1,10 +1,15 @@
 .extend-btn {
     cursor: pointer;
 }
+.right-align {
+    text-align: right;
+}
+
 
 @media only screen and (max-width: 768px) {
     .btn, .btn-group {
         width:100%;
+        margin-bottom: 10px;
     }
     input [type=text] {
         width: 100%;
@@ -21,6 +26,11 @@
         padding-left: 5rem;
         font-style: italic;
     }
-
+    .btn-left {
+        margin-left: 1rem;
+    }
+    .btn-right {
+        margin-right: 1rem;
+    }
 }
 

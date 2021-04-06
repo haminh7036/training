@@ -7,6 +7,7 @@ use App\Models\UserModel;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
+use Illuminate\Validation\Rule;
 
 class UserController extends Controller
 {
@@ -147,5 +148,60 @@ class UserController extends Controller
             ->json([
                 'email' => true
             ], 200);
+    }
+
+    public function uniqueEmailEdit(Request $request)
+    {
+        //check if email has been existed
+        $validator = Validator::make($request->all(), [
+            'email' => Rule::unique('mst_users', 'email')
+                ->ignore($request->oldEmail)
+        ]);
+
+        if ($validator->fails()) {
+            return response()
+            ->json([
+                'email' => false
+            ], 200);
+        }
+
+        return response()
+            ->json([
+                'email' => true
+            ], 200);
+    }
+
+    public function editUser(Request $request)
+    {
+        //edit user
+        $request->validate([
+            'id' => 'required | exists:mst_users,id',
+            'name' => 'required | string',
+            'password' => 'required | string | min:5 | regex:/^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])/',
+            'group_role' => 'required | in:Admin,Reviewer,Editor',
+            'is_active' => 'boolean'
+        ]);
+
+        if ($request->has('email')) {
+            $request->validate([
+                'email' => 'string | email | unique:mst_users,email'
+            ]);
+        }
+
+        $data = $request->except('password', 'is_active');
+
+        $active = isset($request->is_active) ? (int) $request->is_active : 1;
+        $password = Hash::make($request->password);
+
+        UserModel::where('id','=', $request->id) 
+            ->update(array_merge($data, [
+                'password' => $password,
+                'is_active' => $active
+            ]));
+
+        return response()
+        ->json([
+            'message' => 'success'
+        ], 200);
     }
 }

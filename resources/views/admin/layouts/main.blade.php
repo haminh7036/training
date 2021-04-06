@@ -1,3 +1,30 @@
+@php
+$menu = [
+  [
+    "name" => "User",
+    "child" => [
+      [
+        "name" => "User Management",
+        "url" => "/admin/user/user",
+        "route" => route('admin.user.user.index'),
+        "icon" => "fas fa-users"
+      ],
+    ]
+  ],
+  [
+    "name" => "Order",
+    "child" => [
+      [
+        "name" => "Customer Management",
+        "url" => "/admin/order/customer",
+        "route" => route('admin.order.customer.index'),
+        "icon" => "fas fa-smile"
+      ],
+    ]
+  ],
+];
+@endphp
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
