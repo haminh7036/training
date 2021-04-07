@@ -154,23 +154,23 @@
                         <form class="form-horizontal" id="popupForm">
                             <div class="form-group form-inline">
                                 <label for="inputName" class="pr-3">Tên</label>
-                                <input type="text" class="form-control col-sm-10 ml-auto mr-0" name="inputName" id="inputName" placeholder="Nhập họ tên">
+                                <input type="text" class="form-control col-sm-10" name="inputName" id="inputName" placeholder="Nhập họ tên">
                             </div>
                             <div class="form-group form-inline email-form">
                                 <label for="inputEmail" class="pr-3">Email</label>
-                                <input type="text" class="form-control col-sm-10 ml-auto mr-0" name="inputEmail" id="inputEmail" placeholder="Nhập email">
+                                <input type="text" class="form-control col-sm-10" name="inputEmail" id="inputEmail" placeholder="Nhập email">
                             </div>
                             <div class="form-group form-inline">
                                 <label for="inputPassword" class="pr-3">Mật khẩu</label>
-                                <input type="password" class="form-control col-sm-10 ml-auto mr-0" name="inputPassword" id="inputPassword" placeholder="Mật khẩu">
+                                <input type="password" class="form-control col-sm-10" name="inputPassword" id="inputPassword" placeholder="Mật khẩu">
                             </div>
                             <div class="form-group form-inline">
                                 <label for="inputRePassword" class="pr-3">Xác nhận</label>
-                                <input type="password" class="form-control col-sm-10 ml-auto mr-0" name="inputPassword_confirmation" id="inputRePassword" placeholder="Xác nhận mật khẩu">
+                                <input type="password" class="form-control col-sm-10" name="inputPassword_confirmation" id="inputRePassword" placeholder="Xác nhận mật khẩu">
                             </div>
                             <div class="form-group form-inline">
                                 <label for="inputGroup" class="pr-3">Nhóm</label>
-                                <select name="inputGroup" class="form-control col-sm-10 ml-auto mr-0" id="inputGroup">
+                                <select name="inputGroup" class="form-control col-sm-10" id="inputGroup">
                                     <option value="Admin" selected>Admin</option>
                                     <option value="Reviewer">Reviewer</option>
                                     <option value="Editor">Editor</option>

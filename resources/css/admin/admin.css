@@ -5,8 +5,7 @@
     text-align: right;
 }
 
-
-@media only screen and (max-width: 768px) {
+@media only screen and (max-width: 768px) and (orientation:portrait) {
     .btn, .btn-group {
         width:100%;
         margin-bottom: 10px;
@@ -20,7 +19,44 @@
     span.error-text {
         font-style: italic;        
     }
+    span.error-text-9 {
+        font-style: italic;
+    }
 }
+
+@media only screen and (max-width: 768px) and (orientation:landscape) {
+    .btn, .btn-group {
+        width:100%;
+        margin-bottom: 10px;
+    }
+    .form-inline input {
+        margin-left: auto;
+        margin-right: 0%;
+        flex: 0 0 75%;
+        max-width: 75%;
+    }
+    .form-inline .checkbox {
+        flex: 0 0 75%;
+        max-width: 75%;
+    }
+    .form-inline .checkbox label input[type=checkbox] {
+        margin-left: 1.3rem;
+        margin-right: auto;
+    }
+    .form-inline .checkbox label {
+        margin-left: 0%;
+        margin-right: auto;
+        padding-right: 13rem;
+    }
+    span.error-text {
+        font-style: italic;        
+    }
+    span.error-text-9 {
+        font-style: italic;
+        padding-left: 7.2rem;
+    }
+}
+
 @media only screen and (min-width: 768px) {
     button {
         margin-bottom: 10px;
@@ -29,10 +65,34 @@
         padding-left: 5rem;
         font-style: italic;
     }
+    span.error-text-9 {
+        padding-left: 7.2rem;
+        font-style: italic;
+    }
     .btn-left {
         margin-left: 1rem;
     }
     .btn-right {
         margin-right: 1rem;
+    }
+    .form-inline input {
+        margin-left: auto;
+        margin-right: 0%;
+    }
+    .form-inline .checkbox label input[type=checkbox] {
+        margin-left: 1.3rem;
+        margin-right: auto;
+    }
+    .form-inline .checkbox label {
+        margin-left: 0%;
+        margin-right: auto;
+        padding-right: 13rem;
+    }
+    .form-inline select {
+        margin-left: auto;
+        margin-right: 0%;
+    }
+    .form-inline label {
+        padding-right: 1rem;
     }
 }

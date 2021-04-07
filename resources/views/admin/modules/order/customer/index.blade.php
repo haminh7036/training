@@ -31,7 +31,7 @@
             <div class="col">
                 <div class="card">
                     <div class="card-header">
-                        <div class="row">
+                        <div class="row search-bar">
                             <div class="col-12 col-sm-3">
                                 <div class="form-group">
                                     <label for="name">Tên</label>
@@ -64,8 +64,8 @@
                         <div class="row">
                             <div class="col-sm-6">
                                 <button id="btn-add" class="btn btn-sm btn-primary btn-right"><i class="fas fa-user-plus"></i> Thêm mới</button>
-                                <button id="btn-import" class="btn btn-sm btn-primary btn-right"><i class="fas fa-user-plus"></i> Import CSV</button>
-                                <button id="btn-export" class="btn btn-sm btn-primary"><i class="fas fa-user-plus"></i> Export CsV</button>
+                                <button id="btn-import" class="btn btn-sm btn-primary btn-right"><i class="fas fa-file-import"></i> Import CSV</button>
+                                <button id="btn-export" class="btn btn-sm btn-primary"><i class="fas fa-file-export"></i> Export CsV</button>
                             </div>
                             <div class="col-sm-6 right-align">
                                 <button id="btn-search" class="btn btn-sm btn-primary btn-right"><i class="fas fa-search"></i> Tìm kiếm</button>
@@ -93,46 +93,39 @@
         </div>
 
         <!-- Hidden Input -->
-
+        <input type="hidden" id="editable" value="0">
         <!-- Modal -->
         <div class="modal fade" id="popupModal" tabindex="-1" role="dialog" aria-labelledby="popupLabel" aria-hidden="true">
             <div class="modal-dialog modal-dialog-centered" role="document">
                 <div class="modal-content">
                     <div class="modal-header">
-                    <h5 class="modal-title" id="popupLabel">...</h5>
+                    <h5 class="modal-title" id="popupLabel">Thêm khách hàng</h5>
                     </div>
                     <div class="modal-body">
                         <form class="form-horizontal" id="popupForm">
                             <div class="form-group form-inline">
-                                <label for="inputName" class="pr-3">Tên</label>
-                                <input type="text" class="form-control col-sm-10 ml-auto mr-0" name="inputName" id="inputName" placeholder="Nhập họ tên">
+                                <label for="inputName">Tên</label>
+                                <input type="text" class="form-control col-sm-9" name="inputName" id="inputName" placeholder="Nhập họ tên">
                             </div>
                             <div class="form-group form-inline email-form">
-                                <label for="inputEmail" class="pr-3">Email</label>
-                                <input type="text" class="form-control col-sm-10 ml-auto mr-0" name="inputEmail" id="inputEmail" placeholder="Nhập email">
+                                <label for="inputEmail">Email</label>
+                                <input type="text" class="form-control col-sm-9" name="inputEmail" id="inputEmail" placeholder="Nhập email">
                             </div>
                             <div class="form-group form-inline">
-                                <label for="inputPassword" class="pr-3">Mật khẩu</label>
-                                <input type="password" class="form-control col-sm-10 ml-auto mr-0" name="inputPassword" id="inputPassword" placeholder="Mật khẩu">
+                                <label for="inputPhone">Điện thoại</label>
+                                <input type="text" class="form-control col-sm-9" name="inputPhone" id="inputPhone" placeholder="Điện thoại">
                             </div>
                             <div class="form-group form-inline">
-                                <label for="inputRePassword" class="pr-3">Xác nhận</label>
-                                <input type="password" class="form-control col-sm-10 ml-auto mr-0" name="inputPassword_confirmation" id="inputRePassword" placeholder="Xác nhận mật khẩu">
+                                <label for="inputAddress">Địa chỉ</label>
+                                <input type="text" class="form-control col-sm-9" name="inputAddress" id="inputAddress" placeholder="Địa chỉ">
                             </div>
                             <div class="form-group form-inline">
-                                <label for="inputGroup" class="pr-3">Nhóm</label>
-                                <select name="inputGroup" class="form-control col-sm-10 ml-auto mr-0" id="inputGroup">
-                                    <option value="Admin" selected>Admin</option>
-                                    <option value="Reviewer">Reviewer</option>
-                                    <option value="Editor">Editor</option>
-                                </select>
-                            </div>
-                            <div class="form-group form-inline">
-                                <label class="pr-3">Trạng thái</label>
-                                <label class="font-weight-normal">
-                                    <input type="checkbox" class="pr-3" value="1" name="inputActive" id="inputActive">
-                                    <span>Hoạt động</span>
-                                </label>
+                                <label>Trạng thái</label>
+                                <div class="checkbox col-sm-9">
+                                    <label class="font-weight-normal">
+                                        <input type="checkbox" value="1" name="inputActive" id="inputActive"> Hoạt động
+                                    </label>
+                                </div>
                             </div>
                         </form>
                     </div>
@@ -143,6 +136,7 @@
                 </div>
             </div>
         </div>
+
     </section>
       <!-- /.content -->
 @endsection

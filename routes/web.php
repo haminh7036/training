@@ -76,6 +76,10 @@ Route::prefix('admin')->middleware('auth')->group(function () {
             ->name('admin.order.customer.index');
         Route::get('/customer-list', [CustomerController::class, 'getCustomers'])
             ->name('admin.order.customer.getCustomers');
+        Route::post('/customer-email-unique', [CustomerController::class, 'emailUnique'])
+            ->name('admin.order.customer.emailUnique');
+        Route::post('/add-customer', [CustomerController::class, 'addCustomer'])
+            ->name('admin.order.customer.addCustomer');
     });
 });
 
