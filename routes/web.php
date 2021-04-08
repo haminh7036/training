@@ -80,6 +80,10 @@ Route::prefix('admin')->middleware('auth')->group(function () {
             ->name('admin.order.customer.emailUnique');
         Route::post('/add-customer', [CustomerController::class, 'addCustomer'])
             ->name('admin.order.customer.addCustomer');
+        Route::post('/customer-edit-email-unique', [CustomerController::class, 'editEmailUnique'])
+            ->name('admin.order.customer.editEmailUnique');
+        Route::post('/edit-customer', [CustomerController::class, 'editCustomer'])
+            ->name('admin.order.customer.editCustomer');
     });
 });
 

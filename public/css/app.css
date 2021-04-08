@@ -49,6 +49,7 @@ table.dataTable.dtr-inline.collapsed>tbody>tr>td.child,table.dataTable.dtr-inlin
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
+    z-index: 10000;
   }
   .lds-roller div {
     -webkit-animation: lds-roller 1.2s cubic-bezier(0.5, 0, 0.5, 1) infinite;
@@ -62,7 +63,7 @@ table.dataTable.dtr-inline.collapsed>tbody>tr>td.child,table.dataTable.dtr-inlin
     width: 7px;
     height: 7px;
     border-radius: 50%;
-    background: rgb(72, 38, 224);
+    background: rgb(66, 25, 248);
     margin: -4px 0 0 -4px;
   }
   .lds-roller div:nth-child(1) {
@@ -146,6 +147,28 @@ table.dataTable.dtr-inline.collapsed>tbody>tr>td.child,table.dataTable.dtr-inlin
     }
   }
   
+  .cell-with-comment{
+    position:relative;
+  }
+  
+  .cell-comment{
+    display:none;
+    position:absolute; 
+    z-index:100;
+    border:1px;
+    background-color:white;
+    border-style:solid;
+    border-width:1px;
+    border-color:red;
+    padding:3px;
+    color:red; 
+    top:20px; 
+    left:20px;
+  }
+  
+  .cell-with-comment:hover span.cell-comment{
+    display:block;
+  }
 @charset "UTF-8";
 /*!
  * Bootstrap v4.6.0 (https://getbootstrap.com/)

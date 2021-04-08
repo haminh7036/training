@@ -98,6 +98,7 @@ $.validator.addMethod('phoneVietnam', function (value, element) {
     return this.optional(element) || /(84|0[3|5|7|8|9])+([0-9]{8})\b/.test(value);
 }, 'Số điện thoại không đúng định dạng');
 
+//popup add customer validate
 popupForm = $("#popupForm");
 popupForm.validate({
     onfocusout: false,
@@ -174,30 +175,175 @@ $("#submit-popup").on("click", function () {
     popupForm.submit();
 });
 
+
+//hidden edit form validate
+$.validator.setDefaults({ ignore: '' });
+editForm = $("#editForm");
+editForm.validate({
+    onfocusout: false,
+    onkeyup: false,
+    onclick: false,
+    errorElement: "small",
+    errorClass: "is-invalid text-danger",
+    rules: {
+        "editName" : {
+            required: true,
+            minlength: 5
+        },
+        "editEmail" : {
+            required : true,
+            email: true,
+            remote : {
+                url: "/admin/order/customer-edit-email-unique",
+                type: "POST",
+                contentType: "application/json; charset=utf-8",
+                beforeSend: function (xhr) {
+                    xhr.setRequestHeader("X-CSRF-TOKEN", $("meta[name=csrf-token]").attr("content"));
+                },
+                data : {
+                    oldEmail: function () {
+                        return $("#oldEmail").val();
+                    }
+                }
+            },
+        },
+        "editPhone" : {
+            required : true,
+            minlength: 5,
+            number: true,
+            phoneVietnam: true,
+        },
+        "editAddress" : {
+            required: true
+        },
+
+    },
+    messages: {
+        "editEmail" : {
+            required: "Email không được bỏ trống",
+            email: "Email không đúng định dạng",
+            remote: "Email đã tồn tại",
+        }
+        ,
+        "editName" : {
+            required : "Vui lòng nhập tên khách hàng"
+        },
+        "editPhone" : {
+            required : "Điện thoại không được bỏ trống"
+        },
+        "editAddress": {
+            required : "Địa chỉ không được bỏ trống"
+        }
+    },
+    highlight: function ( element, errorClass) { 
+        $ ( element ).addClass(errorClass).removeClass("text-danger");
+    },
+    submitHandler: function(form) {
+        var requestData = {
+            customerId: $("#editId").val(),
+            oldEmail: $("#oldEmail").val(),
+            customer_name : $("#editName").val(),
+            email: $("#editEmail").val(),
+            tel_num: $("#editPhone").val(),
+            address: $("#editAddress").val(),
+        }
+
+        //update customer
+        axios({
+            url: "/admin/order/edit-customer",
+            method: "POST",
+            data: requestData
+        }).then((res) => {
+            var trigger = $("#editable");
+            var customerId = $("#editId");
+            table.draw();
+
+            //change icon
+            $(`#editAction-${customerId.val()}`).removeClass("fa-check-circle text-danger")
+            .addClass("fa-edit text-info");
+            
+            var child = $(`#rowId-${customerId.val()}`).children('td');
+            child.each(function () {
+                //disable edit
+                $(this).removeAttr('contenteditable');
+            });
+
+            //update finished
+            trigger.val("0");
+            customerId.val("");
+        })
+    },
+    invalidHandler: function(e, validator) {
+        //loading
+        $("#table-customer_processing").css("display", "none");
+
+        var errors = "";
+        var newLine = "\r\n";
+        
+        //validator.errorMap is an object mapping input names -> error messages
+
+        for (var i in validator.errorMap) {
+          console.log(i, ":", validator.errorMap[i]);
+          errors += validator.errorMap[i];
+          errors += newLine;
+        }
+
+        alert(errors);
+    }
+});
+
+
 window.Edit = function Edit(id) {
     //
     var trigger = $("#editable");
+    var customerId = $("#editId");
     if (trigger.val() === "0") {
         //edit row
         trigger.val("1");
+
+        //save id user
+        customerId.val(id);
+
+        //change icon
+        $(`#editAction-${id}`).removeClass("fa-edit text-info")
+        .addClass("fa-check-circle text-danger");
+
+        //save old email
         var row = table.row(`#rowId-${id}`).data();
-        console.log(row);
+        $("#oldEmail").val(row.email);
+
         var child = $(`#rowId-${id}`).children('td');
-        child.each(function () {
-            $(this).attr('contenteditable', true);
-            console.log($(this).html());
-        });
-    }
-    else {
+
+        for (let index = 0; index < (child.length - 1); index ++) {
+            const element = child[index];
+            element.contentEditable = true;
+        }
+
+    } else {
         //update row
-        var row = table.row(`#rowId-${id}`).data();
-        console.log(row);
-        var child = $(`#rowId-${id}`).children('td');
-        child.each(function (index) {
-            $(this).attr('contenteditable', true);
-            
-            console.log($(this).html());
-        });
+        //check if edit same row
+        if (customerId.val() != id) {
+            alert("Đang chỉnh sửa một row khác!");
+        } else {
+            //empty array to save new value
+            var newData = [];
+            var child = $(`#rowId-${id}`).children('td');
+            child.each(function () {
+                newData.push($(this).html());
+            });
+
+            var inputFields = editForm.find("input");
+            //add value to input form
+            inputFields.each(function (index) {
+                $(this).val(newData [index]);
+            });
+
+            //loading
+            $("#table-customer_processing").css("display", "block");
+
+            //edit
+            editForm.submit();
+        }
     }
 
 }

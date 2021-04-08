@@ -4,8 +4,10 @@ namespace App\Http\Controllers\Modules\Order\Customer;
 
 use App\Http\Controllers\Controller;
 use App\Models\CustomerModel;
+use DebugBar\DebugBar;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
+use Illuminate\Validation\Rule;
 use Yajra\DataTables\DataTables;
 
 class CustomerController extends Controller
@@ -22,7 +24,7 @@ class CustomerController extends Controller
 
         return DataTables::of($customers)
         ->addColumn('edit', function ($customers) {
-            return '<i class="fas fa-edit text-info extend-btn" onclick= "Edit('.$customers->customer_id.')"></i>';
+            return '<i class="fas fa-edit text-info extend-btn" id= "editAction-'.$customers->customer_id.'" onclick= "Edit('.$customers->customer_id.')"></i>';
         })
         ->rawColumns(['edit'])
         ->setRowId(function ($customers) {
@@ -77,6 +79,52 @@ class CustomerController extends Controller
 
         //insert
         CustomerModel::create($data);
+
+        return response()->json([
+            'message' => 'success'
+        ], 200);
+    }
+
+    public function editEmailUnique(Request $request)
+    {
+        if ($request->oldEmail === $request->editEmail) {
+            return response(json_encode(true) , 200,[
+                'Content-type' => 'application/json'
+            ]);
+        }
+
+        //validate unique if old email != new email
+        $validator = Validator::make($request->all(), [
+            'editEmail' => 'required|unique:mst_customers,email'
+        ]);
+        if ($validator->fails()) {
+            return response(json_encode(false), 200,[
+                'Content-type' => 'application/json'
+            ]);
+        }
+        return response(json_encode(true) , 200,[
+            'Content-type' => 'application/json'
+        ]);
+    }
+
+    public function editCustomer(Request $request)
+    {
+        $request->validate([
+            'customer_name' => 'required|string|min:5',
+            'email' => [
+                        'required', 'email', 
+                        Rule::unique("mst_customers", 'email')
+                            ->ignore($request->oldEmail, "email")
+                    ],
+            'tel_num' => ['required', 'numeric', 'regex:/(84|0[3|5|7|8|9])+([0-9]{8})/'],
+            'address' => 'required',
+        ]);
+
+        $data = $request->except('customerId', 'oldEmail');
+        
+        //update
+        CustomerModel::where('customer_id','=', $request->customerId)
+            ->update($data);
 
         return response()->json([
             'message' => 'success'

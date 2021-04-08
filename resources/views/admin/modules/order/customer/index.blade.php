@@ -94,6 +94,8 @@
 
         <!-- Hidden Input -->
         <input type="hidden" id="editable" value="0">
+        <input type="hidden" id="editId">
+        <input type="hidden" id="oldEmail">
         <!-- Modal -->
         <div class="modal fade" id="popupModal" tabindex="-1" role="dialog" aria-labelledby="popupLabel" aria-hidden="true">
             <div class="modal-dialog modal-dialog-centered" role="document">
@@ -135,6 +137,15 @@
                     </div>
                 </div>
             </div>
+        </div>
+
+        <div class="d-none">
+            <form class="form-horizontal" id="editForm">
+                <input type="text" class="form-control col-sm-9" name="editName" id="editName" placeholder="Nhập họ tên">
+                <input type="text" class="form-control col-sm-9" name="editEmail" id="editEmail" placeholder="Nhập email">
+                <input type="text" class="form-control col-sm-9" name="editAddress" id="editAddress" placeholder="Địa chỉ">
+                <input type="text" class="form-control col-sm-9" name="editPhone" id="editPhone" placeholder="Điện thoại">
+            </form>
         </div>
 
     </section>
