@@ -196,7 +196,6 @@ editForm.validate({
             remote : {
                 url: "/admin/order/customer-edit-email-unique",
                 type: "POST",
-                contentType: "application/json; charset=utf-8",
                 beforeSend: function (xhr) {
                     xhr.setRequestHeader("X-CSRF-TOKEN", $("meta[name=csrf-token]").attr("content"));
                 },
@@ -283,7 +282,7 @@ editForm.validate({
         //validator.errorMap is an object mapping input names -> error messages
 
         for (var i in validator.errorMap) {
-          console.log(i, ":", validator.errorMap[i]);
+          //console.log(i, ":", validator.errorMap[i]);
           errors += validator.errorMap[i];
           errors += newLine;
         }
@@ -315,8 +314,7 @@ window.Edit = function Edit(id) {
         var child = $(`#rowId-${id}`).children('td');
 
         for (let index = 0; index < (child.length - 1); index ++) {
-            const element = child[index];
-            element.contentEditable = true;
+            child[index].contentEditable = true;
         }
 
     } else {
