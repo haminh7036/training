@@ -2,12 +2,16 @@
 
 namespace App\Http\Controllers\Modules\Order\Customer;
 
+use App\Exports\CustomerExport;
 use App\Http\Controllers\Controller;
+use App\Imports\CustomerImport;
 use App\Models\CustomerModel;
 use DebugBar\DebugBar;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Validation\Rule;
+use Maatwebsite\Excel\Excel as ExcelExcel;
+use Maatwebsite\Excel\Facades\Excel;
 use Yajra\DataTables\DataTables;
 
 class CustomerController extends Controller
@@ -129,5 +133,70 @@ class CustomerController extends Controller
         return response()->json([
             'message' => 'success'
         ], 200);
+    }
+
+    public function uploadExcel(Request $request)
+    {
+        $validator = Validator::make($request->all(), [
+            'file' => 'required | file | mimetypes:application/vnd.ms-excel,application/vnd.openxmlformats-officedocument.spreadsheetml.sheet'
+        ], [
+            'file.required' => 'Hãy chọn tập tin để tải lên',
+            'file.mimetypes' => 'Tập tin tải lên phải là excel file'
+        ]);
+
+        if ($validator->fails()) {
+            return response([
+                'errorCode' => 1,
+                'message' => 'failed',
+                'errors' => $validator
+                    ->errors()->get('file')
+            ], 200, [
+                'Content-Type' => 'json'
+            ]);
+        }
+
+        $data = $request->file;
+
+        $import = new CustomerImport();
+        $import->import($data);
+
+        $errors = [];
+        foreach ($import->failures() as $failure) {
+            if ($failure->row() === 1) {
+                continue;
+            }
+
+            array_push($errors, ' - Dòng thứ '. $failure->row().
+                ' bị lỗi ở cột '. $failure->attribute());
+        }
+
+        return response([
+            'errorCode' => 0,
+            'message' => 'success',
+            'errors' => $errors,
+            'upload' => 'Okay'
+        ], 200, [
+            'Content-Type' => 'json'
+        ]);
+    }
+
+    public function exportExcel(Request $request)
+    {
+        $export = new CustomerExport();
+
+        if (!empty($request->name)) {
+            $export->forName($request->name);
+        }
+        if (!empty($request->email)) {
+            $export->forEmail($request->email);
+        }
+        if (!empty($request->address)) {
+            $export->forAddress($request->address);
+        }
+        if ($request->status !== "") {
+            $export->forActive($request->status);
+        }
+
+        return $export->download('Customer.xlsx', ExcelExcel::XLSX);
     }
 }

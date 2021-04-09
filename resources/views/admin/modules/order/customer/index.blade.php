@@ -65,7 +65,7 @@
                             <div class="col-sm-6">
                                 <button id="btn-add" class="btn btn-sm btn-primary btn-right"><i class="fas fa-user-plus"></i> Thêm mới</button>
                                 <button id="btn-import" class="btn btn-sm btn-primary btn-right"><i class="fas fa-file-import"></i> Import CSV</button>
-                                <button id="btn-export" class="btn btn-sm btn-primary"><i class="fas fa-file-export"></i> Export CsV</button>
+                                <button id="btn-export" class="btn btn-sm btn-primary"><i class="fas fa-file-export"></i> Export CSV</button>
                             </div>
                             <div class="col-sm-6 right-align">
                                 <button id="btn-search" class="btn btn-sm btn-primary btn-right"><i class="fas fa-search"></i> Tìm kiếm</button>
@@ -87,6 +87,9 @@
                             <tbody>
                             </tbody>
                         </table>
+                    </div>
+                    <div class="loading d-none" id="export-loading">
+                        <div class="lds-roller"><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div></div>
                     </div>
                 </div>
           </div>
@@ -138,6 +141,41 @@
                 </div>
             </div>
         </div>
+        <div class="modal fade" id="importModal" tabindex="-1" role="dialog" aria-labelledby="importModalTitle" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered" role="document">
+              <div class="modal-content">
+                <div class="modal-header">
+                  <h5 class="modal-title" id="importModalTitle">Import Excel</h5>
+                  <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                  </button>
+                </div>
+                <div class="modal-body">
+                    <div class="form-horizontal">
+                        <div class="input-group">
+                            <div class="custom-file">
+                                <input type="file" class="custom-file-input" id="inputGroupFile04">
+                                <label class="custom-file-label" for="inputGroupFile04"></label>
+                            </div>
+                            <div class="input-group-append">
+                                <button id="btn-upload-file" class="btn btn-outline-secondary" type="button">Upload</button>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <textarea class="form-control" readonly id="errorFileRow" cols="30" rows="5"></textarea>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                  <button type="button" class="btn btn-sm btn-secondary" data-dismiss="modal">Đóng</button>
+                </div>
+                <div class="loading d-none" id="import-loading">
+                    <div class="lds-roller"><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+
 
         <div class="d-none">
             <form class="form-horizontal" id="editForm">

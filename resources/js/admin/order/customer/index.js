@@ -1,4 +1,5 @@
 const { default: axios } = require("axios");
+const FileSaver = require("file-saver");
 
 //config table
 var myConfig = {
@@ -97,6 +98,9 @@ $("#btn-add").on("click", function() {
 $.validator.addMethod('phoneVietnam', function (value, element) {
     return this.optional(element) || /(84|0[3|5|7|8|9])+([0-9]{8})\b/.test(value);
 }, 'Số điện thoại không đúng định dạng');
+$.validator.addMethod('nameVietnam', function (value, element) {
+    return this.optional(element) || /^([a-zA-ZÀÁÂÃÈÉÊÌÍÒÓÔÕÙÚĂĐĨŨƠàáâãèéêìíòóôõùúăđĩũơƯĂẠẢẤẦẨẪẬẮẰẲẴẶẸẺẼỀỀỂẾưăạảấầẩẫậắằẳẵặẹẻẽềềểếỄỆỈỊỌỎỐỒỔỖỘỚỜỞỠỢỤỦỨỪễệỉịọỏốồổỗộớờởỡợụủứừỬỮỰỲỴÝỶỸửữựỳỵỷỹ]+\$)*[a-zA-ZÀÁÂÃÈÉÊÌÍÒÓÔÕÙÚĂĐĨŨƠàáâãèéêìíòóôõùúăđĩũơƯĂẠẢẤẦẨẪẬẮẰẲẴẶẸẺẼỀỀỂẾưăạảấầẩẫậắằẳẵặẹẻẽềềểếỄỆỈỊỌỎỐỒỔỖỘỚỜỞỠỢỤỦỨỪễệỉịọỏốồổỗộớờởỡợụủứừỬỮỰỲỴÝỶỸửữựỳỵỷỹ\s]+$/.test(value);
+}, 'Tên không hợp lệ');
 
 //popup add customer validate
 popupForm = $("#popupForm");
@@ -109,7 +113,8 @@ popupForm.validate({
     rules: {
         "inputName" : {
             required: true,
-            minlength: 5
+            minlength: 5,
+            nameVietnam: true,
         },
         "inputEmail" : {
             required : true,
@@ -188,7 +193,8 @@ editForm.validate({
     rules: {
         "editName" : {
             required: true,
-            minlength: 5
+            minlength: 5,
+            nameVietnam: true,
         },
         "editEmail" : {
             required : true,
@@ -228,6 +234,7 @@ editForm.validate({
             required : "Vui lòng nhập tên khách hàng"
         },
         "editPhone" : {
+            number : "Số điện thoại phải là chữ số",
             required : "Điện thoại không được bỏ trống"
         },
         "editAddress": {
@@ -323,6 +330,8 @@ window.Edit = function Edit(id) {
         if (customerId.val() != id) {
             alert("Đang chỉnh sửa một row khác!");
         } else {
+            //not edit
+
             //empty array to save new value
             var newData = [];
             var child = $(`#rowId-${id}`).children('td');
@@ -345,3 +354,65 @@ window.Edit = function Edit(id) {
     }
 
 }
+
+//input file
+$(".custom-file-input").on("change", function (e) {
+    if (e.target.value.length == 0) {
+        $(this).next(".custom-file-label").html('');        
+        return 0;
+    }
+    $(this).next(".custom-file-label").html(e.target.files[0].name);
+})
+
+//import excel
+$("#btn-import").on("click", function () {
+    $("#importModal").modal("show");
+})
+//upload file
+$("#btn-upload-file").on("click", function () {
+    var file = $(".custom-file-input")[0].files[0];
+    var body = new FormData();
+    body.append("file", file);
+    //loading
+    $("#import-loading").removeClass("d-none");
+    axios({
+        url: "/admin/order/upload-file",
+        method: "POST",
+        headers: {
+            "Content-Type":"multipart/form-data"
+        },
+        data: body
+    }).then((res) => {
+        //console.log(res.data);
+        var newLine = `&#13;&#10;`;
+        var error = (res.data.errorCode === 0) ? 'Thêm dữ liệu thành công' + newLine : '';
+
+        for (var i = 0; i < Object.keys(res.data.errors).length ; i++) {
+            error += res.data.errors[i] + newLine;
+        }
+
+        $("#errorFileRow").html(error);
+        table.draw();
+    }).finally(() => {
+        $(".custom-file-label").html("");
+        $("#import-loading").addClass("d-none");
+    })
+})
+
+//export excel
+$("#btn-export").on("click", function () {
+    var requestData = table.rows().data();
+    console.log(requestData);
+    //loading
+    $("#export-loading").removeClass("d-none");
+    axios({
+        url: "/admin/order/export-customer",
+        method: "POST",
+        responseType: "blob",
+        data: requestData
+    }).then((res) => {
+        FileSaver.saveAs(res.data, 'Customer.xlsx');
+    }).finally(() => {
+        $("#export-loading").addClass("d-none");
+    })
+});

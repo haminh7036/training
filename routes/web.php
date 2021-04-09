@@ -84,6 +84,10 @@ Route::prefix('admin')->middleware('auth')->group(function () {
             ->name('admin.order.customer.editEmailUnique');
         Route::post('/edit-customer', [CustomerController::class, 'editCustomer'])
             ->name('admin.order.customer.editCustomer');
+        Route::post('/upload-file', [CustomerController::class, 'uploadExcel'])
+            ->name('admin.order.customer.uploadExcel');
+        Route::post('/export-customer', [CustomerController::class, 'exportExcel'])
+            ->name('admin.order.customer.exportExcel');
     });
 });
 
