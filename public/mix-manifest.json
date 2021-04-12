@@ -3,6 +3,7 @@
     "/js/popper.js": "/js/popper.js",
     "/js/admin/user/index.js": "/js/admin/user/index.js",
     "/js/admin/order/customer/index.js": "/js/admin/order/customer/index.js",
+    "/js/admin/product/index.js": "/js/admin/product/index.js",
     "/css/app.css": "/css/app.css",
     "/css/admin.css": "/css/admin.css"
 }

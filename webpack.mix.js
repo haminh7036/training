@@ -18,4 +18,5 @@ mix.js('resources/js/app.js', 'public/js')
     .js('node_modules/popper.js/dist/popper.js', 'public/js')
     .js('resources/js/admin/user/index.js', 'public/js/admin/user')
     .js('resources/js/admin/order/customer/index.js', 'public/js/admin/order/customer')
+    .js('resources/js/admin/product/index.js', 'public/js/admin/product')
     .sourceMaps();

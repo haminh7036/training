@@ -27,6 +27,30 @@ table.dataTable.dtr-inline.collapsed>tbody>tr>td.child,table.dataTable.dtr-inlin
   text-align: left;
 }
 
+#table-product_processing {
+  background-color: slategrey;
+  opacity: 30%;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  padding-right: 15px;
+  padding-left: 15px;
+  margin: auto;
+  text-align: left;
+}
+
+
+.img-hover:hover {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  margin: auto;
+  z-index: 10000;
+}
+
 .loading {
     background-color: slategrey;
     opacity: 30%;

@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\Modules\Order\Customer\CustomerController;
+use App\Http\Controllers\Modules\Product\ProductController;
 use App\Http\Controllers\Modules\User\User\UserController;
 
 /*
@@ -17,21 +18,20 @@ use App\Http\Controllers\Modules\User\User\UserController;
 */
 
 //Session
-Route::get('/session', function() {
+Route::get('/session', function () {
     dd(session()->all());
 });
 
 //Auth
 Route::name('auth.')->group(function () {
-    Route::get('login', [LoginController::class,'getLogin'])
+    Route::get('login', [LoginController::class, 'getLogin'])
         ->name('getLogin');
-    Route::post('post-login', [LoginController::class,'postLogin'])
+    Route::post('post-login', [LoginController::class, 'postLogin'])
         ->name('postLogin');
-
 });
 
 //Client
-Route::get('/', function() {
+Route::get('/', function () {
     return view('welcome');
 })->middleware('auth');
 
@@ -40,11 +40,15 @@ Route::get('/', function() {
 Route::prefix('admin')->middleware('auth')->group(function () {
     Route::prefix('product')->group(function () {
         //product
-        Route::get('product', function() {
-            return redirect()
-                ->route('admin.user.user.index');
-        })
-            ->name('admin.product.index');
+        Route::get('product', [ProductController::class, 'index'])
+            ->name('admin.product.product.index');
+        Route::get('product/create', function () {
+            return view('admin.modules.product.product.create');
+        });
+        Route::get('product/list', [ProductController::class, 'getProducts'])
+            ->name('admin.product.product.getProducts');
+        Route::post('product/delete', [ProductController::class, 'destroy'])
+            ->name('admin.product.product.destroy');
         //category
     });
     Route::prefix('user')->group(function () {
@@ -90,4 +94,3 @@ Route::prefix('admin')->middleware('auth')->group(function () {
             ->name('admin.order.customer.exportExcel');
     });
 });
-
