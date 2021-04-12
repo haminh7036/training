@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Modules\Order\Customer;
 
 use App\Exports\CustomerExport;
+use App\Exports\CustomersExport;
 use App\Http\Controllers\Controller;
 use App\Imports\CustomerImport;
 use App\Models\CustomerModel;
@@ -182,20 +183,11 @@ class CustomerController extends Controller
 
     public function exportExcel(Request $request)
     {
-        $export = new CustomerExport();
+        $request->validate([
+            'data' => 'required | array'
+        ]);
 
-        if (!empty($request->name)) {
-            $export->forName($request->name);
-        }
-        if (!empty($request->email)) {
-            $export->forEmail($request->email);
-        }
-        if (!empty($request->address)) {
-            $export->forAddress($request->address);
-        }
-        if ($request->status !== "") {
-            $export->forActive($request->status);
-        }
+        $export = new CustomersExport($request->data);
 
         return $export->download('Customer.xlsx', ExcelExcel::XLSX);
     }

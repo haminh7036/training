@@ -401,7 +401,7 @@ $("#btn-upload-file").on("click", function () {
 
 //export excel
 $("#btn-export").on("click", function () {
-    var requestData = table.rows().data();
+    var requestData = table.rows().data().toArray();
     console.log(requestData);
     //loading
     $("#export-loading").removeClass("d-none");
@@ -409,7 +409,9 @@ $("#btn-export").on("click", function () {
         url: "/admin/order/export-customer",
         method: "POST",
         responseType: "blob",
-        data: requestData
+        data: {
+            data: requestData
+        }
     }).then((res) => {
         FileSaver.saveAs(res.data, 'Customer.xlsx');
     }).finally(() => {
