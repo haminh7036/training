@@ -91,8 +91,8 @@ var table = $("#table-product").DataTable({
         dataRows.forEach(function (value, key) {
             var child = $(`#rowId-${value.product_id}`).children("td");
             child[0].addEventListener("mouseenter", function (e) {
-                $("body").append(`
-                    <img src="${value.product_image}" class = "img-hover">`);
+                // $("body").append(`
+                //     <img src="${value.product_image}" class = "img-hover">`);
             });
         });
     },
