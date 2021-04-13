@@ -1,5 +1,9 @@
 @extends('admin.layouts.main')
 
+@section('css')
+    <link rel="stylesheet" href="{{asset('css/form.css')}}">
+@endsection
+
 @section('title')
     Thêm mới sản phẩm
 @endsection
@@ -24,7 +28,8 @@
     </section>
     <section class="content">
         <div class="container-fluid">
-            <form action="" method="post" class="row">
+            <form action="{{route('admin.product.product.store')}}" method="post" class="row" id="formAEProduct">
+                @csrf
                 @include('admin.modules.product.product._control')
             </form>
         </div>
@@ -32,5 +37,5 @@
 @endsection
 
 @section('script')
-    
+    <script src="{{asset('js/admin/product/form.js')}}"></script>
 @endsection

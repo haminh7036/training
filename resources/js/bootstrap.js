@@ -14,6 +14,10 @@ try {
     require('admin-lte');
 } catch (e) {}
 
+//image load: error
+$("img").on("error", function () {
+    $(this).attr("src", "/img/no_image.png");
+})
 
 /**
  * We'll load the axios HTTP library which allows us to easily issue requests

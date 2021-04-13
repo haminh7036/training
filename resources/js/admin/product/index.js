@@ -87,12 +87,14 @@ var table = $("#table-product").DataTable({
     ],
     initComplete: function (settings, json) {
         let dataRows = json.data;
-        console.log(dataRows);
         dataRows.forEach(function (value, key) {
             var child = $(`#rowId-${value.product_id}`).children("td");
-            child[0].addEventListener("mouseenter", function (e) {
-                // $("body").append(`
-                //     <img src="${value.product_image}" class = "img-hover">`);
+            child[0].addEventListener("mouseenter", function () {
+                $("#img-hover").attr("src", value.product_image)
+                .show();
+            });
+            child[0].addEventListener("mouseleave", function() {
+                $("#img-hover").fadeOut(0);
             });
         });
     },

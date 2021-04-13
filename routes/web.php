@@ -37,19 +37,33 @@ Route::get('/', function () {
 
 
 //Dashboard
+Route::middleware(['auth'])->group(function () {
+    Route::any('/ckfinder/connector', '\CKSource\CKFinderBridge\Controller\CKFinderController@requestAction')
+        ->name('ckfinder_connector');
+    Route::any('/ckfinder/browser', '\CKSource\CKFinderBridge\Controller\CKFinderController@browserAction')
+        ->name('ckfinder_browser');
+});
+
 Route::prefix('admin')->middleware('auth')->group(function () {
     Route::prefix('product')->group(function () {
         //product
         Route::get('product', [ProductController::class, 'index'])
             ->name('admin.product.product.index');
-        Route::get('product/create', function () {
-            return view('admin.modules.product.product.create');
-        });
+        Route::get('product/create', [ProductController::class, 'create'])
+            ->name('admin.product.product.create');
         Route::get('product/list', [ProductController::class, 'getProducts'])
             ->name('admin.product.product.getProducts');
         Route::post('product/delete', [ProductController::class, 'destroy'])
             ->name('admin.product.product.destroy');
-        //category
+        Route::post('/product/store', [ProductController::class, 'store'])
+            ->name('admin.product.product.store');
+        Route::get('/product/edit/{id}', [ProductController::class, 'edit'])
+            ->name('admin.product.product.edit');
+        Route::put('/product/update/{id}', [ProductController::class, 'update'])
+            ->name('admin.product.product.update');
+        Route::post('/product/file', [ProductController::class, 'file'])
+            ->name('admin.product.product.file');
+        //category etc
     });
     Route::prefix('user')->group(function () {
         //user
