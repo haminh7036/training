@@ -144,7 +144,13 @@ class ProductController extends Controller
             $validator = Validator::make([
                 'file' => $request->file('file')
             ], [
-                'file' => 'required | file | max:2048 | mimes:jpg,jpeg,png'
+                'file' => 'required|file|max:2048|mimes:jpg,jpeg,png|dimensions:max_width=1024'
+            ], [
+                'file.dimensions' => 'Hình ảnh có độ phân giải tối đa 1024px',
+                'file.max' => 'Dung lượng ảnh không quá 2MB',
+                'file.mimes' => 'Chỉ cho phép ảnh có đuôi .jpg, .jpeg, .png',
+            ], [
+                'file' => 'Hình ảnh'
             ]);
             if ($validator->fails()) {
                 return response([
