@@ -28,12 +28,16 @@ Route::name('auth.')->group(function () {
         ->name('getLogin');
     Route::post('post-login', [LoginController::class, 'postLogin'])
         ->name('postLogin');
+    Route::post('post-logout', [LoginController::class, 'postLogout'])
+        ->name('postLogout');
 });
 
 //Client
 Route::get('/', function () {
     return view('welcome');
-})->middleware('auth');
+})
+    ->middleware('auth')
+    ->name('home');
 
 
 //Dashboard

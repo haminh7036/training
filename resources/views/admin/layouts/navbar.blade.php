@@ -118,7 +118,10 @@
           <!-- Menu Footer-->
           <li class="user-footer">
             <div class="text-center">
-              <a href="#" class="btn btn-default btn-sm btn-flat">Sign out</a>
+              <form action="{{route('auth.postLogout')}}" method="post">
+                @csrf
+                <button type="submit" class="btn btn-default btn-sm btn-flat">Sign out</button>              
+              </form>
             </div>
           </li>
         </ul>
