@@ -22,6 +22,17 @@ $menu = [
       ],
     ]
   ],
+  [
+    "name" => "Product",
+    "child" => [
+      [
+        "name" => "Product Management",
+        "url" => "/admin/product/product",
+        "route" => route("admin.product.product.index"),
+        "icon" => "fab fa-product-hunt"
+      ]
+    ]
+  ]
 ];
 @endphp
 
