@@ -40,13 +40,26 @@ class LoginController extends Controller
 
         //Check account
         $user = UserModel::where('email', $request->email)
-            ->where('is_active', 1)
             ->first() ?? null;
 
         if (empty($user)) {
             return back()
                 ->withErrors([
+                    'email' => 'Tài khoản không tồn tại'
+                ]);
+        }
+
+        if ($user->is_active === 0) {
+            return back()
+                ->withErrors([
                     'email' => 'Tài khoản bị vô hiệu hóa'
+                ]);
+        }
+
+        if ($user->is_delete === 1) {
+            return back()
+                ->withErrors([
+                    'email' => 'Tài khoản đã bị xóa'
                 ]);
         }
 
