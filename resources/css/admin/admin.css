@@ -54,7 +54,8 @@
         padding-right: 13rem;
     }
     span.error-text {
-        font-style: italic;        
+        font-style: italic;
+        padding-left: 7.2rem;
     }
     span.error-text-9 {
         font-style: italic;

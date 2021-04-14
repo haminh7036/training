@@ -224,7 +224,9 @@ popupForm.validate({
             required: true,
             equalTo: "#inputPassword"
         },
-
+        "inputGroup" : {
+            required : true
+        }
     },
     messages: {
         "inputEmail" : {
@@ -233,6 +235,9 @@ popupForm.validate({
         },
         "inputPassword_confirmation" : {
             equalTo: "Mật khẩu xác nhận không trùng khớp"
+        },
+        "inputGroup" : {
+            required: "Hãy chọn nhóm thành viên"
         }
     },
     errorPlacement: function(label, element) {
