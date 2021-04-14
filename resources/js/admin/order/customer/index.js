@@ -303,7 +303,10 @@ editForm.validate({
         }).then((res) => {
             var trigger = $("#editable");
             var customerId = $("#editId");
-            table.draw();
+            
+            //not reload table
+            //table.draw();
+            $("#table-customer_processing").css("display", "none");
 
             //change icon
             $(`#editAction-${customerId.val()}`)
