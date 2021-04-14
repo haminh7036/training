@@ -45,9 +45,9 @@ class LoginController extends Controller
 
         if (empty($user)) {
             return back()
-            ->withErrors([
-                'email' => 'Tài khoản bị vô hiệu hóa'
-            ]);
+                ->withErrors([
+                    'email' => 'Tài khoản bị vô hiệu hóa'
+                ]);
         }
 
         $info = $this->getData($request->only('email', 'password'));
@@ -58,7 +58,7 @@ class LoginController extends Controller
             $remember = false;
         }
 
-        if(Auth::attempt($info, $remember)) {
+        if (Auth::attempt($info, $remember)) {
             //Login succeed
 
             //Save login time and ip
@@ -68,12 +68,19 @@ class LoginController extends Controller
             $user->save();
 
             //Redirect to Product Management List
-            return redirect()->route('admin.product.index');
+            return redirect()->route('admin.product.product.index');
         } else {
             return back()
-            ->withErrors([
-                'password' => 'Mật khẩu không chính xác'
-            ]);
+                ->withErrors([
+                    'password' => 'Mật khẩu không chính xác'
+                ]);
         }
+    }
+
+    public function postLogout(Request $request)
+    {
+        Auth::logout();
+        return redirect()
+            ->route('home');
     }
 }
