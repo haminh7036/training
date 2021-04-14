@@ -68,7 +68,7 @@ $("#uploadFile").on("change", function (e) {
         .then((res) => {
             $("#product_image").val(res.data.filePath);
             $("#product_image").removeClass("is-invalid");
-
+            $("#file-error").html('').addClass("d-none");
             //image
             $("#image-demo").attr("src", res.data.filePath);
         }).catch((e) => {
