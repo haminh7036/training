@@ -30,7 +30,7 @@
             <div class="col">
                 <div class="card">
                     <div class="card-header">
-                        <div class="row">
+                        <div class="row search-bar">
                             <div class="col-12 col-sm-3">
                                 <div class="form-group">
                                     <label for="name">Tên</label>
@@ -197,5 +197,5 @@
 @endsection
 
 @section('script')
-    <script src="{{asset('js/admin/user/index.js')}}"></script>
+    <script src="{{asset('js/admin/user/index_2.js')}}"></script>
 @endsection

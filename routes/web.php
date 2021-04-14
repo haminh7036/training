@@ -73,7 +73,7 @@ Route::prefix('admin')->middleware('auth')->group(function () {
         //user
         Route::get('user', [UserController::class, 'index'])
             ->name('admin.user.user.index');
-        Route::get('user-list', [UserController::class, 'getUsers'])
+        Route::get('user-list', [UserController::class, 'getUsersAjax'])
             ->name('admin.user.user.getUsers');
         Route::post('user-search', [UserController::class, 'search'])
             ->name('admin.user.user.search');
@@ -89,6 +89,8 @@ Route::prefix('admin')->middleware('auth')->group(function () {
             ->name('admin.user.user.uniqueEmail');
         Route::post('email-validate-2', [UserController::class, 'uniqueEmailEdit'])
             ->name('admin.user.user.uniqueEmailEdit');
+        Route::post('user-email-unique', [UserController::class, 'emailUniqueUser'])
+            ->name('admin.user.user.userEmailUnique');
         Route::post('user-edit', [UserController::class, 'editUser'])
             ->name('admin.user.user.userEdit');
         //group role

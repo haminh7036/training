@@ -89,8 +89,25 @@ $("#btn-delete-search").on("click", function () {
     table.draw();
 })
 
+$('#popupForm').on('keydown', 'input, select', function(e) {
+    if (e.key === "Enter") {
+        var self = $(this), form = self.parents('form:eq(0)'), focusable, next;
+        focusable = form.find('input,a,select,button,textarea').filter(':visible');
+        next = focusable.eq(focusable.index(this)+1);
+        if (next.length) {
+            next.focus();
+        } else {
+            form.submit();
+        }
+        return false;
+    }
+});
+
 //add customer button
 $("#btn-add").on("click", function() {
+    $("#popupForm div input, #popupForm div select").each(function () {
+        $(this).val('');
+    });
     $("#popupModal").modal("show");
 })
 
@@ -171,6 +188,9 @@ popupForm.validate({
             data: requestData
         }).then((res) => {
             table.draw();
+            $("#popupForm div input, #popupForm div select").each(function () {
+                $(this).val('');
+            });
             $("#popupModal").modal("toggle");
         })
     }

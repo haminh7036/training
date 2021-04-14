@@ -8,6 +8,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Validation\Rule;
+use Yajra\DataTables\Facades\DataTables;
 
 class UserController extends Controller
 {
@@ -203,5 +204,71 @@ class UserController extends Controller
         ->json([
             'message' => 'success'
         ], 200);
+    }
+
+    public function getUsersAjax(Request $request)
+    {
+        $users = UserModel::query()
+            ->where('is_delete', 0)->latest();
+
+        return DataTables::of($users)
+            ->addColumn('action', function ($users) {
+                return '
+                <button type="button" class="btn btn-outline-primary"
+                    onclick ="getEditId(' . $users->id . ')">
+                    <i class= "fas fa-edit"></i>
+                </button>
+                <button type="button" class="btn btn-outline-danger" 
+                    onclick ="getDeleteId(' . $users->id . ')">
+                    <i class= "fas fa-trash-alt"></i>
+                </button>
+                <button type="button" class="btn btn-outline-secondary" 
+                    onclick ="getBlockId(' . $users->id . ')">
+                    <i class= "fas fa-user-times"></i>
+                </button>
+                
+                ';
+            })
+            ->rawColumns(['action'])
+            ->setRowId(function ($users) {
+                return "rowId-" . $users->id;
+            })
+            ->filter(function ($query) use ($request) {
+                if (!empty($request->name)) {
+                    $query->where('name', 'like', '%' . $request->name . '%');
+                }
+
+                if (isset($request->status)) {
+                    $query->where('is_active', '=', intval($request->status));
+                }
+
+                if (!empty($request->email)) {
+                    $query->where('email', 'like', '%'.$request->email.'%');
+                }
+
+                if (!empty($request->role)) {
+                    $query->where('group_role', 'like', $request->role);
+                }
+            })
+            ->toJson();
+    }
+
+    public function emailUniqueUser(Request $request)
+    {
+        //validate
+        $validator = Validator::make($request->all(), [
+            'inputEmail' => ['required',
+                Rule::unique('mst_users','email')
+                    ->ignore($request->get('oldEmail'), 'email')
+                ]
+        ]);
+        if ($validator->fails()) {
+            return response(json_encode(false), 200,[
+                'Content-type' => 'application/json'
+            ]);
+        }
+        return response(json_encode(true) , 200,[
+            'Content-type' => 'application/json'
+        ]);
     }
 }

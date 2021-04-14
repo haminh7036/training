@@ -26,6 +26,19 @@
   text-align: left;
 }
 
+#table-user_processing {
+  background-color: slategrey;
+  opacity: 30%;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  padding-right: 15px;
+  padding-left: 15px;
+  margin: auto;
+  text-align: left;
+}
 
 .img-hover {
   border:rgb(66, 25, 248) 1px solid;
