@@ -49,17 +49,17 @@ class LoginController extends Controller
                 ]);
         }
 
-        if ($user->is_active === 0) {
-            return back()
-                ->withErrors([
-                    'email' => 'Tài khoản bị vô hiệu hóa'
-                ]);
-        }
-
         if ($user->is_delete === 1) {
             return back()
                 ->withErrors([
                     'email' => 'Tài khoản đã bị xóa'
+                ]);
+        }
+
+        if ($user->is_active === 0) {
+            return back()
+                ->withErrors([
+                    'email' => 'Tài khoản bị vô hiệu hóa'
                 ]);
         }
 
