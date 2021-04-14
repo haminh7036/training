@@ -38,6 +38,7 @@
     .form-inline .checkbox {
         flex: 0 0 75%;
         max-width: 75%;
+        margin-left: 0.75rem;
     }
     .form-inline select {
         margin-left: auto;
@@ -65,6 +66,10 @@
     .form-w100 {
         flex: 0 0 100% !important;
         max-width: 100% !important;
+    }
+
+    .user-checkbox {
+        margin-left: 2rem !important;
     }
 }
 

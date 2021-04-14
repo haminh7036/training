@@ -178,7 +178,7 @@
                             </div>
                             <div class="form-group form-inline">
                                 <label class="pr-3">Trạng thái</label>
-                                <label class="font-weight-normal">
+                                <label class="text-nowrap font-weight-normal user-checkbox">
                                     <input type="checkbox" class="pr-3" value="1" name="inputActive" id="inputActive">
                                     <span>Hoạt động</span>
                                 </label>

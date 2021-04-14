@@ -127,7 +127,7 @@
                             <div class="form-group form-inline">
                                 <label>Trạng thái</label>
                                 <div class="checkbox col-sm-9">
-                                    <label class="font-weight-normal">
+                                    <label class="text-nowrap font-weight-normal">
                                         <input type="checkbox" value="1" name="inputActive" id="inputActive"> Hoạt động
                                     </label>
                                 </div>
