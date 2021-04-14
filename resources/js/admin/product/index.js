@@ -1,5 +1,16 @@
 const { default: axios } = require("axios");
 
+//function
+function Substr(input = "", length = 100) {
+    if (input.length <= length) {
+        return input;
+    }
+    var lastSpace = input.substring(0, length).lastIndexOf(" ");
+    var trimmedText = input.substring(0, lastSpace);
+    trimmedText += "...";
+    return trimmedText;
+}
+
 //config table
 var myConfig = {
     dom: "Bftipr",
@@ -56,7 +67,12 @@ var table = $("#table-product").DataTable({
     },
     columns: [
         { data: "product_name" },
-        { data: "description" },
+        {
+            data: "description",
+            render: function (data) {
+                return Substr(data, 40);
+            },
+        },
         { data: "product_price" },
         {
             data: "is_sales",
@@ -90,10 +106,9 @@ var table = $("#table-product").DataTable({
         dataRows.forEach(function (value, key) {
             var child = $(`#rowId-${value.product_id}`).children("td");
             child[0].addEventListener("mouseenter", function () {
-                $("#img-hover").attr("src", value.product_image)
-                .show();
+                $("#img-hover").attr("src", value.product_image).show();
             });
-            child[0].addEventListener("mouseleave", function() {
+            child[0].addEventListener("mouseleave", function () {
                 $("#img-hover").fadeOut(0);
             });
         });

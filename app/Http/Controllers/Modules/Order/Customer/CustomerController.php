@@ -29,7 +29,10 @@ class CustomerController extends Controller
 
         return DataTables::of($customers)
         ->addColumn('edit', function ($customers) {
-            return '<i class="fas fa-edit text-info extend-btn" id= "editAction-'.$customers->customer_id.'" onclick= "Edit('.$customers->customer_id.')"></i>';
+            return '<button type="button" class="btn btn-outline-info"
+                id= "editAction-'.$customers->customer_id.'" onclick= "Edit('.$customers->customer_id.')">
+                <i class="fas fa-edit"></i>
+            </button>';
         })
         ->rawColumns(['edit'])
         ->setRowId(function ($customers) {

@@ -30,8 +30,8 @@
           name="is_sales" id="is_sales">
           <option value="" {{old("is_sales", "") === "" ? "selected" : ""}}>Chọn</option>
           <option value="1" {{old("is_sales", "") === 1 ? "selected" : ""}}>Đang bán</option>
-          <option value="0" {{old("is_sales", "") === 0 ? "selected" : ""}}>Ngừng bán</option>
-          <option value="-1" {{old("is_sales", "") === -1 ? "selected" : ""}}>Hết hàng</option>
+          <option value="0" {{old("is_sales", "") === 0 ? "selected" : ""}}>Hết hàng</option>
+          <option value="-1" {{old("is_sales", "") === -1 ? "selected" : ""}}>Dừng bán</option>
         </select>
         @error('is_sales')
             <small class="form-text text-danger">{{ $message }}</small>
@@ -50,11 +50,11 @@
         <div class="form-inline">
           <button type="button" class="btn btn-primary mb-sm-0 mr-sm-1" id="btn-upload">Chọn File</button>
           <button type="button" class="btn btn-danger mb-sm-0 mr-sm-1" id="btn-delete-file">Xóa File</button>
-          <div class="form-group">
-            <input type="text" class="form-control" 
+
+            <input type="text" class="form-control form-w100" 
             name="product_image" id="product_image" placeholder=""
             value="{{old("product_image", "")}}" readonly>
-          </div>
+
           <input type="file" id="uploadFile" placeholder="" hidden class="custom-file-input">
         </div>
       <small id="file-error" class="text-danger d-none"></small>
@@ -62,7 +62,7 @@
         <small class="form-text text-danger">{{ $message }}</small>
       @enderror
     </div>
-    <div class="form-group float-right m-3 mb-sm-0">
+    <div class="form-group float-sm-right m-sm-3 mb-sm-0">
         <button type="button" class="btn btn-secondary btn-goback">Huỷ</button>
         <button type="submit" class="btn btn-danger">Lưu</button>
     </div>
