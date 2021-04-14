@@ -14,7 +14,7 @@ class LoginController extends Controller
     public function getLogin()
     {
         if (Auth::check()) {
-            return redirect()->route('admin.product.index');
+            return redirect()->route('admin.product.product.index');
         }
 
         return view('auth.login');
