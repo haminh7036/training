@@ -64,7 +64,9 @@
                         </div>
                         <div class="row">
                             <div class="col-sm-6">
-                                <button id="btn-add" class="btn btn-sm btn-primary btn-right"><i class="fas fa-user-plus"></i> Thêm mới</button>
+                                <a href="{{route('admin.product.product.create')}}">
+                                    <button id="btn-add" class="btn btn-sm btn-primary btn-right"><i class="fas fa-user-plus"></i> Thêm mới</button>
+                                </a>
                             </div>
                             <div class="col-sm-6 right-align">
                                 <button id="btn-search" class="btn btn-sm btn-primary btn-right"><i class="fas fa-search"></i> Tìm kiếm</button>
@@ -96,7 +98,7 @@
 
         <!-- Hidden Input -->
         <input type="hidden" id="deleteProductId">
-
+        <img src="" id="img-hover" class="img-hover" style="display: none" alt="">
         <!-- Modal -->
         <div class="modal fade" id="deleteModal" tabindex="-1" role="dialog" aria-labelledby="deleteModalLabel" aria-hidden="true">
             <div class="modal-dialog modal-dialog-centered" role="document">

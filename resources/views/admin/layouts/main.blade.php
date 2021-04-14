@@ -48,6 +48,7 @@ $menu = [
   <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
   <link rel="stylesheet" href="{{ asset('css/app.css') }}">
   <link rel="stylesheet" href="{{ asset('css/admin.css') }}">
+  @yield('css')
 </head>
 <body class="hold-transition sidebar-mini layout-navbar-fixed">
 <!-- Site wrapper -->

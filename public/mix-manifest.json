@@ -4,6 +4,8 @@
     "/js/admin/user/index.js": "/js/admin/user/index.js",
     "/js/admin/order/customer/index.js": "/js/admin/order/customer/index.js",
     "/js/admin/product/index.js": "/js/admin/product/index.js",
+    "/js/admin/product/form.js": "/js/admin/product/form.js",
     "/css/app.css": "/css/app.css",
+    "/css/form.css": "/css/form.css",
     "/css/admin.css": "/css/admin.css"
 }
