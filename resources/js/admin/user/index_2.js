@@ -198,6 +198,7 @@ popupForm.validate({
     rules: {
         "inputName" : {
             required: true,
+            minlength: 5
         },
         "inputEmail" : {
             required : true,
