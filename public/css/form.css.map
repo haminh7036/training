@@ -1,0 +1,1 @@
+{"version":3,"sources":["webpack:///./resources/css/admin/form.css"],"names":[],"mappings":"AAAA,YACI,aAAc,CACd,YACJ,C","file":"css/form.css","sourcesContent":[".img-center {\r\n    display: block;\r\n    padding: 1rem;\r\n}"],"sourceRoot":""}
