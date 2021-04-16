@@ -1,7 +1,6 @@
 {
     "/js/app.js": "/js/app.js",
     "/js/popper.js": "/js/popper.js",
-    "/js/admin/user/index.js": "/js/admin/user/index.js",
     "/js/admin/user/index_2.js": "/js/admin/user/index_2.js",
     "/js/admin/order/customer/index.js": "/js/admin/order/customer/index.js",
     "/js/admin/product/index.js": "/js/admin/product/index.js",

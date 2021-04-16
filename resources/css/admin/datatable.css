@@ -1,6 +1,6 @@
 #table-customer_processing {
   background-color: slategrey;
-  opacity: 30%;
+  opacity: 0.3;
   position: absolute;
   top: 0;
   left: 0;
@@ -14,7 +14,7 @@
 
 #table-product_processing {
   background-color: slategrey;
-  opacity: 30%;
+  opacity: 0.3;
   position: absolute;
   top: 0;
   left: 0;
@@ -28,7 +28,7 @@
 
 #table-user_processing {
   background-color: slategrey;
-  opacity: 30%;
+  opacity: 0.3;
   position: absolute;
   top: 0;
   left: 0;
@@ -53,7 +53,7 @@
 
 .loading {
     background-color: slategrey;
-    opacity: 30%;
+    opacity: 0.3;
     position: absolute;
     top: 0;
     left: 0;
