@@ -1,6 +1,5 @@
 <?php
 
-use App\Http\Controllers\API\TestController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -15,10 +14,6 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-// Route::middleware('auth:api')->get('/user-demo', function (Request $request) {
-//     return $request->user();
-// });
-
-Route::post('/login', [TestController::class, 'login']);
-Route::get('/user', [TestController::class, 'user'])
-    ->middleware(['auth:sanctum', 'revokeSanctum']);
+Route::middleware('auth:api')->get('/user', function (Request $request) {
+    return $request->user();
+});
